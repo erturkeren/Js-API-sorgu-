@@ -2,6 +2,8 @@ document.querySelector("#getOne").addEventListener("click", getOne);
 
 document.querySelector("#getAll").addEventListener("click", getAll);
 
+document.querySelector("#postData").addEventListener("click", postData);
+
 function getOne() {
   let id = document.getElementById("postid").value;
   let url = "https://jsonplaceholder.typicode.com/posts/" + id;
@@ -61,4 +63,26 @@ function getAll() {
   };
 
   xhr.send();
+}
+
+function postData() {
+  let data = {
+    userID: 1,
+    title: "eren",
+    body: "new body",
+  };
+  let json = JSON.stringify(data);
+  let url = "https://jsonplaceholder.typicode.com/posts";
+  let xhr = new XMLHttpRequest();
+  xhr.open("POST", url, true);
+  xhr.setRequestHeader("Content-type", "application/json; charset=utf-8");
+
+  xhr.onload = function () {
+    if (xhr.status === 201 && xhr.readyState === 4) {
+      let post = xhr.responseText;
+      console.log(post);
+    }
+  };
+
+  xhr.send(json);
 }
